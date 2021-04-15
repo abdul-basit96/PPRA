@@ -14,7 +14,9 @@ const HttpError = require("../error/http-error");
        name: 'Admin',
        email: 'admin@gmail.com',
        password: pass,
-       designation: 'HR'
+       designation: 'HR',
+       totalLeaves: 24,
+       earnedLeaves: 0
    });
    try {
      await employee.save();

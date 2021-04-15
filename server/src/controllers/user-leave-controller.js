@@ -1,5 +1,6 @@
 const HttpError = require("../error/http-error");
 const Leave = require("../models/user-leave");
+const Employee = require("../models/employee");
 
 const insertLeave = async (req, res) => {
   const leave = new Leave(req.body);
@@ -10,6 +11,16 @@ const insertLeave = async (req, res) => {
     throw new HttpError(e);
   }
 };
+
+const getEmployeeLeaves = async (req,res) => {
+  try{
+  const employeeId = req.params.id;
+  const {earnedLeaves, totalLeaves} = await Employee.findById(employeeId);
+  res.status(200).send({earnedLeaves, totalLeaves});
+  }catch(e){
+    throw new HttpError(e);
+  }
+}
 
 const fetchLeave = async (req, res) => {
   try {
@@ -51,3 +62,4 @@ exports.insertLeave = insertLeave;
 exports.fetchLeave = fetchLeave;
 exports.updateLeave = updateLeave;
 exports.deleteLeave = deleteLeave;
+exports.getEmployeeLeaves = getEmployeeLeaves;
