@@ -72,6 +72,12 @@ const Employee = mongoose.model("Employee", {
   photo: {
     type: Buffer,
   },
+  totalLeave:{
+    type: Number
+  }, 
+  earnedLeave: {
+    type: Number
+  }
 });
 
 module.exports = Employee;

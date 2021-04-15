@@ -34,6 +34,7 @@ const AddLeave = (props) => {
     (state) => state.leaveTypeReducer.leaveTypeList
   );
   const loggedInUser = useSelector((state) => state.authReducer.loggedInUser);
+  console.log({loggedInUser})
   const department = loggedInUser.department;
   const leaveTypeOptions = leaveTypeList.map((leave) => {
     return (
@@ -49,6 +50,7 @@ const AddLeave = (props) => {
       type: e.target.leavetype.value,
       from: e.target.from.value,
       to: e.target.to.value,
+      
       authority: e.target.authority.value,
       comment: e.target.comment.value,
       employeeId: loggedInUser._id,

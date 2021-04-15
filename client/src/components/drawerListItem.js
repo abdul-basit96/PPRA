@@ -21,6 +21,7 @@ export default function DrawerListItem(props) {
           {props.children[2]}
           {props.children[3]}
           {props.children[4]}
+          {props.children[5]}
         </List>
       </Collapse>
     </>

@@ -202,6 +202,13 @@ const DrawerList = (props) => {
               <ListItemText primary="Manage Leave Type" />
             </ListItem>
           </NavLink>
+
+          <NavLink to="/home/LeaveSummaryReport" className={classes.navlink}>
+            <ListItem button className={classes.nested}>
+              <ListItemText primary="Leave Summary Report" />
+            </ListItem>
+          </NavLink>
+          
         </DrawerListItem>
         {/* payroll options
         <DrawerListItem
