@@ -31,7 +31,7 @@ const ManageLeave = (props) => {
         duration: ConvertDate(leave.from) + " To " + ConvertDate(leave.to),
         comment: leave.comment,
         status: leave.status,
-        department:leave.department
+        department: leave.department
       };
     }
   });
@@ -42,7 +42,7 @@ const ManageLeave = (props) => {
   const columns = [
     { title: "Employee Name", field: "employeeName" },
     { title: "Leave Type", field: "type" },
-    {title:"Department", field:"department"},
+    { title: "Department", field: "department" },
     { title: "Duration", field: "duration" },
     { title: "Comment", field: "comment" },
     { title: "Status", field: "status" },

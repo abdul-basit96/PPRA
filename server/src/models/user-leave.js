@@ -21,8 +21,8 @@ const Leave = mongoose.model("Leave", {
   authority: {
     type: String,
   },
-  department:{
-    type:String,
+  department: {
+    type: String,
   }
 });
 

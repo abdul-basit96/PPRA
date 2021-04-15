@@ -31,7 +31,7 @@ if (localStorage.getItem("token")) {
 }
 
 function App() {
-  console.log('node',process.env)
+  console.log('node', process.env)
   useEffect(() => {
     // store.dispatch(loadUser());
   }, []);

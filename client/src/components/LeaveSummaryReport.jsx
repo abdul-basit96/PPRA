@@ -23,8 +23,8 @@ const ManageLeaveSummary = (props) => {
   console.log({ leaves });
 
   function getDifferenceInDays(date1, date2) {
-      let date = new Date(date1).getTime();
-      let date12 = new Date(date2).getTime();
+    let date = new Date(date1).getTime();
+    let date12 = new Date(date2).getTime();
 
     const diffInMs = Math.ceil(date12 - date);
     return diffInMs / (1000 * 60 * 60 * 24);

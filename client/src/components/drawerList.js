@@ -164,10 +164,10 @@ const DrawerList = (props) => {
             {/* <ListItem button className={classes.nested}>
               <ListItemText primary="Daily Attendacne" />
             </ListItem> */}
-              <NavLink to="/home/attendance" className={classes.navlink}>
-            <ListItem button className={classes.nested}>
-              <ListItemText primary="Attendance Report" />
-            </ListItem>
+            <NavLink to="/home/attendance" className={classes.navlink}>
+              <ListItem button className={classes.nested}>
+                <ListItemText primary="Attendance Report" />
+              </ListItem>
             </NavLink>
           </List>
         </Collapse>
@@ -208,7 +208,7 @@ const DrawerList = (props) => {
               <ListItemText primary="Leave Summary Report" />
             </ListItem>
           </NavLink>
-          
+
         </DrawerListItem>
         {/* payroll options
         <DrawerListItem
@@ -265,27 +265,27 @@ const DrawerList = (props) => {
             <ListItemText primary="Manage Holiday" />
           </ListItem>
         </DrawerListItem> */}
-         {/* visitors options */}
-         <DrawerListItem
-        onClick={() => {
-          props.payRollAction();
-          props.drawerActionOpen();
-        }}
-        primary="Visitors"
-        openVariable={props.payRollOpen}
-      >
-        <TransferWithinAStationIcon color="primary" />
-        <NavLink to="/home/AddVisitor" className={classes.navlink}>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Add Visitor" />
-          </ListItem>
-        </NavLink>
-        <NavLink to="/home/CheckVisitor" className={classes.navlink}>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Check Visitors" />
-          </ListItem>
-        </NavLink>
-      </DrawerListItem>
+        {/* visitors options */}
+        <DrawerListItem
+          onClick={() => {
+            props.payRollAction();
+            props.drawerActionOpen();
+          }}
+          primary="Visitors"
+          openVariable={props.payRollOpen}
+        >
+          <TransferWithinAStationIcon color="primary" />
+          <NavLink to="/home/AddVisitor" className={classes.navlink}>
+            <ListItem button className={classes.nested}>
+              <ListItemText primary="Add Visitor" />
+            </ListItem>
+          </NavLink>
+          <NavLink to="/home/CheckVisitor" className={classes.navlink}>
+            <ListItem button className={classes.nested}>
+              <ListItemText primary="Check Visitors" />
+            </ListItem>
+          </NavLink>
+        </DrawerListItem>
         {/* setting options */}
         <DrawerListItem
           onClick={() => {
