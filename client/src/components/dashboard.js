@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import TotalEmp from './totalEmployees';
 import Graph from './graph';
 import AlignItemsList from './activitylist';
-import { attendance } from "../actions/employee-actions";
+import { attendance, fetchEmployeeLeaves } from "../actions/employee-actions";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchLeave } from "../actions/user-leave-actions";
@@ -23,10 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AutoGrid = (props) => {
-  useEffect(() => {
-    props.attendance();
-    props.fetchLeave();
-  }, []);
+  
   const classes = useStyles();
   const loggedInUser = useSelector((state) => state.authReducer.loggedInUser);
   const leaves = useSelector((state) => state.leaveReducer.leaveList);
@@ -38,6 +35,13 @@ const AutoGrid = (props) => {
       }
   })
   const designation = loggedInUser.designation;
+
+  useEffect(() => {
+    props.attendance();
+    props.fetchLeave();
+    props.fetchEmployeeLeaves(loggedInUser?._id);
+  }, []);
+  
   var today = new Date();
   var dd = today.getDate();
 
@@ -215,23 +219,23 @@ const AutoGrid = (props) => {
   if (designation === 'HR') {
     dashboardJSX = (
       <>
-        <Grid container spacing={1} style={{height: "100%"}} justify="center" align="center">
-          <Grid item xs style={{height: "100%"}}>
+        <Grid container spacing={1} style={{ height: "100%" }} justify="center" align="center">
+          <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
               <TotalEmp title="TOTAL EMPLOYEES" emp={total ? present.length : ""} />
             </Paper>
           </Grid>
-          <Grid item xs style={{height: "100%"}}>
+          <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
               <TotalEmp title="PRESENT EMPLOYEES" emp={total ? total.length : ""} />
             </Paper>
           </Grid>
-          <Grid item xs style={{height: "100%"}}>
+          <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
               <TotalEmp title="ABSENT EMPLOYEES" emp={total ? present.length - total.length : ""} />
             </Paper>
           </Grid>
-          <Grid item xs style={{height: "100%"}}>
+          <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
               <LeaveCard totalLeaves={totalLeaves} />
             </Paper>
@@ -319,7 +323,7 @@ const AutoGrid = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('att', state.attendance)
+  console.log({ state });
   return {
     data: state.attendance,
   };
@@ -328,6 +332,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     attendance: () => dispatch(attendance()),
     fetchLeave: () => dispatch(fetchLeave()),
+    fetchEmployeeLeaves: (id) => dispatch(fetchEmployeeLeaves(id))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AutoGrid);

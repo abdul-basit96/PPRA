@@ -1,7 +1,7 @@
 export const employeesReducer = (
   state = {
     employees: [],
-    oneEmployee:[],
+    oneEmployee: [],
   },
   action
 ) => {
@@ -12,6 +12,10 @@ export const employeesReducer = (
       return { employees: [...state.employees, action.payload] };
     case "UPDATE_EMPLOYEE":
       return state;
+    case "FETCH_EMPLOYEE_TC_LEAVES":
+      return {
+        employeeLeaves: action.payload,
+      };
     case "FETCH_EMPLOYEE_BY_ID":
       return {
         employees: state.employees,

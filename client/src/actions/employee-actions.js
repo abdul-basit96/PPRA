@@ -1,5 +1,5 @@
 import axios from "axios";
-import {BACKEND_URL} from '../config';
+import { BACKEND_URL } from '../config';
 
 
 export const fetchEmployees = () => {
@@ -24,6 +24,22 @@ export const fetchEmployeeById = (id) => {
   };
 };
 
+export const fetchEmployeeLeaves = (id) => {
+  return async (dispatch) => {
+    try {
+      debugger;
+      const response = await axios.get(`${BACKEND_URL}:5000/employeeleaves/`+id);
+      console.log({response});
+      dispatch({
+        type: "FETCH_EMPLOYEE_TC_LEAVES",
+        payload: response.data
+      })
+    } catch (e) {
+      dispatch({ type: "FETCH_EMPLOYEE_TC_LEAVES_REJECTED" });
+    }
+  }
+}
+
 export const insertEmployee = (employee) => {
   return async (dispatch) => {
     try {
@@ -38,7 +54,7 @@ export const insertEmployee = (employee) => {
 export const updateEmployee = (id, employee) => {
   return async (dispatch) => {
     try {
-      const response = await axios.patch(`${BACKEND_URL}:5000/employee/`+id, employee);
+      const response = await axios.patch(`${BACKEND_URL}:5000/employee/` + id, employee);
       // if(response.data) alert('Record Updated Successfully')
       dispatch({ type: "UPDATE_EMPLOYEE", payload: response.data });
     } catch (e) {
@@ -65,8 +81,8 @@ export const attendance = () => {
   return async (dispatch) => {
     try {
       const resp = await axios.get(`${BACKEND_URL}:5000/attendance`);
-      console.log('atten',resp.data)
-      dispatch({ type: "ATTENDANCE", payload:  resp.data});
+      console.log('atten', resp.data)
+      dispatch({ type: "ATTENDANCE", payload: resp.data });
     } catch (e) {
     }
   };
