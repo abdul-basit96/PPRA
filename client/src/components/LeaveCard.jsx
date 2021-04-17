@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LeaveCard({ totalLeaves }) {
+export default function LeaveCard({employeeLeaves}) {
   const classes = useStyles();
-
+  console.log('aaaaa',employeeLeaves)
   return (
     <Card className={classes.root}>
       <List
@@ -47,15 +47,15 @@ export default function LeaveCard({ totalLeaves }) {
         }
       >
         <ListItem button>
-          <ListItemText primary="Earned Leaves" />
+          <ListItemText primary="Total Leaves" />
           <ListItemSecondaryAction>
-            <ListItemText primary={totalLeaves?.length} />
+            <ListItemText primary={employeeLeaves?.totalLeaves} />
           </ListItemSecondaryAction>
         </ListItem>
         <ListItem button>
-          <ListItemText primary="Casual Leaves" />
+          <ListItemText primary="Earned Leaves" />
           <ListItemSecondaryAction>
-            <ListItemText primary="20" />
+            <ListItemText primary={employeeLeaves?.earnedLeaves} />
           </ListItemSecondaryAction>
         </ListItem>
       </List>

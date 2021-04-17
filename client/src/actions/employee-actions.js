@@ -26,8 +26,7 @@ export const fetchEmployeeById = (id) => {
 
 export const fetchEmployeeLeaves = (id) => {
   return async (dispatch) => {
-    try {
-      debugger;
+    try {      
       const response = await axios.get(`${BACKEND_URL}:5000/employeeleaves/`+id);
       console.log({response});
       dispatch({

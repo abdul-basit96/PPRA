@@ -28,7 +28,7 @@ const AutoGrid = (props) => {
   const loggedInUser = useSelector((state) => state.authReducer.loggedInUser);
   const leaves = useSelector((state) => state.leaveReducer.leaveList);
   const totalLeaves = leaves.filter((leave) => {
-    console.log('leaveeeee', leave.status)
+    console.log({loggedInUser})
     if (leave.status)
       if ((leave.employeeId === loggedInUser._id) && (leave.status.includes('Approved'))) {
         return leave;
@@ -40,8 +40,7 @@ const AutoGrid = (props) => {
     props.attendance();
     props.fetchLeave();
     props.fetchEmployeeLeaves(loggedInUser?._id);
-  }, []);
-  
+  }, [loggedInUser]);
   var today = new Date();
   var dd = today.getDate();
 
@@ -237,7 +236,7 @@ const AutoGrid = (props) => {
           </Grid>
           <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
-              <LeaveCard totalLeaves={totalLeaves} />
+              <LeaveCard employeeLeaves={props.employeeLeaves} />
             </Paper>
           </Grid>
 
@@ -284,7 +283,7 @@ const AutoGrid = (props) => {
       </Grid>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <LeaveCard totalLeaves={totalLeaves} />
+          <LeaveCard employeeLeaves={props.employeeLeaves} />
         </Paper>
       </Grid>
     </Grid>
@@ -326,6 +325,7 @@ const mapStateToProps = (state) => {
   console.log({ state });
   return {
     data: state.attendance,
+    employeeLeaves: state.employeesReducer.employeeLeaves
   };
 };
 const mapDispatchToProps = (dispatch) => {
