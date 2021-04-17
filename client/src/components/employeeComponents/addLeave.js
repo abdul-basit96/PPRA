@@ -43,8 +43,19 @@ const AddLeave = (props) => {
       </option>
     );
   });
+
+  function getDifferenceInDays(date1, date2) {
+    let date = new Date(date1).getTime();
+    let date12 = new Date(date2).getTime();
+
+    const diffInMs = Math.ceil(date12 - date);
+    return diffInMs / (1000 * 60 * 60 * 24);
+  }
+
+
   console.log(leaveTypeOptions);
   function handleSubmit(e) {
+
     e.preventDefault();
     const leave = {
       type: e.target.leavetype.value,
@@ -62,7 +73,14 @@ const AddLeave = (props) => {
     e.target.to.value = "";
     e.target.authority.value = "";
     e.target.comment.value = "";
-    dispatch(insertLeave(leave));
+
+    if (getDifferenceInDays(e.target.from.value, e.target.to.value) <= loggedInUser?.totalLeaves) {
+      dispatch(insertLeave(leave));
+    } else {
+      alert("Your Remaining Leaves are less than you are applying right now! In case of any query contact Admin!");
+    }
+
+
   }
   return (
     <>
