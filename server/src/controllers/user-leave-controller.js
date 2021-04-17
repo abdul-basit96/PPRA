@@ -39,6 +39,12 @@ const updateLeave = async (req, res) => {
     const leave = await Leave.findByIdAndUpdate(req.params.id, req.body);
     if (!leave) {
       return res.send("no data found");
+    }else{
+       if(req.body.status === 'Approved'){
+        const days = getDifferenceInDays(leave.from,leave.to);
+        const employee = await Employee.findById(leave.employeeId);
+      await Employee.findByIdAndUpdate(leave.employeeId, {totalLeaves:employee.totalLeaves - days});
+    }
     }
     res.send(leave);
   } catch (e) {
@@ -57,6 +63,14 @@ const deleteLeave = async (req, res) => {
     throw new HttpError(e);
   }
 };
+
+function getDifferenceInDays(date1, date2) {
+  let date = new Date(date1).getTime();
+  let date12 = new Date(date2).getTime();
+
+  const diffInMs = Math.ceil(date12 - date);
+  return diffInMs / (1000 * 60 * 60 * 24);
+}
 
 exports.insertLeave = insertLeave;
 exports.fetchLeave = fetchLeave;
