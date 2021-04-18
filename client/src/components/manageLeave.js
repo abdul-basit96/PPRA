@@ -16,7 +16,7 @@ const ManageLeave = (props) => {
     props.fetchEmployees();
   }, []);
 
-  let data = props.leaveState.map((leave) => {
+  let data = props.leaveState?.map((leave) => {
     if (
       (leave.status === "Pending" && designation === leave.authority && department === leave.department) ||
       designation === "HR"

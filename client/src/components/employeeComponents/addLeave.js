@@ -68,13 +68,14 @@ const AddLeave = (props) => {
       department: department,
       status: "Pending",
     };
+    const currentLeaves = getDifferenceInDays(e.target.from.value, e.target.to.value);
     e.target.leavetype.value = "";
     e.target.from.value = "";
     e.target.to.value = "";
     e.target.authority.value = "";
     e.target.comment.value = "";
-
-    if (getDifferenceInDays(e.target.from.value, e.target.to.value) <= loggedInUser?.totalLeaves) {
+console.log('ttt', loggedInUser?.totalLeaves,  currentLeaves);
+    if (currentLeaves <= loggedInUser?.totalLeaves) {
       dispatch(insertLeave(leave));
     } else {
       alert("Your Remaining Leaves are less than you are applying right now! In case of any query contact Admin!");

@@ -28,7 +28,6 @@ const AutoGrid = (props) => {
   const loggedInUser = useSelector((state) => state.authReducer.loggedInUser);
   const leaves = useSelector((state) => state.leaveReducer.leaveList);
   const totalLeaves = leaves.filter((leave) => {
-    console.log({loggedInUser})
     if (leave.status)
       if ((leave.employeeId === loggedInUser._id) && (leave.status.includes('Approved'))) {
         return leave;
@@ -74,7 +73,6 @@ const AutoGrid = (props) => {
     if ((dd - i) < 1) {
       mm = mm - 1;
       dd = new Date(yyyy, mm, 0).getDate() + i;
-      console.log(dd, 'ddddddddddddddd')
     }
     dates[i] = mm + '/' + (dd - i) + '/' + yyyy;
     d = new Date(dates[i])
@@ -87,7 +85,6 @@ const AutoGrid = (props) => {
       days[i] = weekday[d.getDay()];
     }
   }
-  console.log(dates, days, '7 days')
   if (props.data.dateArray) {
     var total = props.data.dateArray.filter((date, index) => {
       if (date === today) {
@@ -103,7 +100,6 @@ const AutoGrid = (props) => {
       if (da) return da;
     })
 
-    console.log('zzzzzzzzzzzz', dates)
     //   // 
     var gtotal0 = props.data.dateArray.filter((date, index) => {
       if (date === dates[0]) {
@@ -120,7 +116,6 @@ const AutoGrid = (props) => {
     //
     // 
     var gtotal1 = props.data.dateArray.filter((date, index) => {
-      console.log('date', date, 'aaaa', dates[1])
       if (date === dates[1]) {
         return date;
       }
@@ -193,7 +188,6 @@ const AutoGrid = (props) => {
     //
     // 
     var gtotal6 = props.data.dateArray.filter((date, index) => {
-      console.log('date', date, 'aaaa', dates[6])
       if (date === dates[6]) {
         return date;
       }
@@ -268,24 +262,24 @@ const AutoGrid = (props) => {
     dashboardJSX = (<Grid container spacing={2}>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <TotalEmp title="TOTAL LEAVES" emp={20} leave='yes' />
+          <TotalEmp title="TOTAL LEAVES" emp={24} leave='yes' />
         </Paper>
       </Grid>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <TotalEmp title="EARNED LEAVES" emp={totalLeaves ? totalLeaves.length : ""} leave='yes' />
+          <TotalEmp title="EARNED LEAVES" emp={24 - loggedInUser?.totalLeaves} leave='yes' />
         </Paper>
       </Grid>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <TotalEmp title="REMAINING LEAVES" emp={totalLeaves ? 20 - totalLeaves.length : ""} leave='yes' />
+          <TotalEmp title="REMAINING LEAVES" emp={24 - (24 - loggedInUser?.totalLeaves)} leave='yes' />
         </Paper>
       </Grid>
-      <Grid item xs>
+      {/* <Grid item xs>
         <Paper className={classes.paper}>
           <LeaveCard employeeLeaves={props.employeeLeaves} />
         </Paper>
-      </Grid>
+      </Grid> */}
     </Grid>
     )
   }
@@ -322,7 +316,6 @@ const AutoGrid = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log({ state });
   return {
     data: state.attendance,
     employeeLeaves: state.employeesReducer.employeeLeaves

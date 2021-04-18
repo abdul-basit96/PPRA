@@ -34,7 +34,10 @@ export const updateLeave = (id, leave) => {
   return async (dispatch) => {
     try {
       const response = await axios.patch(`${BACKEND_URL}:5000/leave/` + id, leave);
-
+      console.log('rrrrrr',response);
+      if(response.data === 'Sorry'){
+        alert('Sorry can\'t approve this leave. Employee\'s Remaining Leaves are less than Applied Leaves right now! In case of any query contact Admin!');
+      }else{
       dispatch({
         type: "UPDATE_LEAVE",
         payload: {
@@ -42,6 +45,7 @@ export const updateLeave = (id, leave) => {
           status: leave.status,
         },
       });
+    }
     } catch (e) {
       dispatch({
         type: "UPDATE_LEAVE_REJECTED",

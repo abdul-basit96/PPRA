@@ -36,14 +36,18 @@ const fetchLeave = async (req, res) => {
 
 const updateLeave = async (req, res) => {
   try {
-    const leave = await Leave.findByIdAndUpdate(req.params.id, req.body);
+    const leave = await Leave.findById(req.params.id);
     if (!leave) {
       return res.send("no data found");
     }else{
        if(req.body.status === 'Approved'){
         const days = getDifferenceInDays(leave.from,leave.to);
         const employee = await Employee.findById(leave.employeeId);
-      await Employee.findByIdAndUpdate(leave.employeeId, {totalLeaves:employee.totalLeaves - days});
+        if(days > employee.totalLeaves){
+          return res.send('Sorry');
+        }
+        await Leave.findByIdAndUpdate(req.params.id, req.body);
+        await Employee.findByIdAndUpdate(leave.employeeId, {totalLeaves:employee.totalLeaves - days});
     }
     }
     res.send(leave);
