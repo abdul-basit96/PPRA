@@ -10,7 +10,7 @@ function MaterialTableDemo(props) {
     props.fetchEmployees();
   }, []);
   const history = useHistory();
-  const data = props.employeesState.map((emp) => {
+  const data = props?.employeesState?.map((emp) => {
     return {
       id: emp._id,
       name: emp.name,
@@ -38,7 +38,7 @@ function MaterialTableDemo(props) {
           icon: "edit",
           tooltip: "Edit",
           onClick: async (event, rowData) => {
-            await props.fetchEmployeeById(rowData.id);
+            await props.fetchEmployeeById(rowData?.id);
             history.push("/home/EditEmployee");
           },
         },
