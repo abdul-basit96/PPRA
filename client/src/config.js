@@ -1,3 +1,3 @@
 
 
-export const BACKEND_URL="http://127.0.0.1" // http://127.0.0.1
+export const BACKEND_URL="http://192.168.1.224" // http://127.0.0.1
