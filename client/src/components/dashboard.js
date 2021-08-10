@@ -304,11 +304,13 @@ const AutoGrid = (props) => {
       <br />
       <Grid container spacing={12}>
         <br />
-        <Grid item xs>
-          <Paper className={classes.paper}>
-            <Graph graph={graph} />
-          </Paper>
-        </Grid>
+        {designation === 'HR' && (
+          <Grid item xs>
+            <Paper className={classes.paper}>
+              <Graph graph={graph} />
+            </Paper>
+          </Grid>
+        )}
         <Grid item xs>
           <Paper className={classes.paper}>
             <h1>Important Notices</h1>

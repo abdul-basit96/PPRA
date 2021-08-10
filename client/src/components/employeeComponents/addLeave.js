@@ -48,7 +48,8 @@ const AddLeave = (props) => {
     let date12 = new Date(date2).getTime();
 
     const diffInMs = Math.ceil(date12 - date);
-    return diffInMs / (1000 * 60 * 60 * 24);
+    const lve = diffInMs / (1000 * 60 * 60 * 24);
+    return lve + 1;
   }
 
 
