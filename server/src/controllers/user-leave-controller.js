@@ -48,7 +48,7 @@ const updateLeave = async (req, res) => {
           return res.send('Sorry');
         }
         await Leave.findByIdAndUpdate(req.params.id, req.body);
-        if (leave.type.toLowerCase().contain('casual')) {
+        if (leave.type.toLowerCase().includes('casual')) {
           await Employee.findByIdAndUpdate(leave.employeeId, { totalLeaves: employee.totalLeaves - days });
         }
       }
