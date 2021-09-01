@@ -9,7 +9,6 @@ const MaterialTableComponent = (props) => {
         new Promise((resolve) => {
           setTimeout(() => {
             resolve();
-            // console.log("list", oldData.id);
             props.delete(oldData.id);
           }, 600);
         }),

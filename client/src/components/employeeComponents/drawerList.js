@@ -92,14 +92,13 @@ const useStyles = makeStyles((theme) => ({
 
 const DrawerList = (props) => {
   const classes = useStyles();
-  console.log();
   const designation = props.loggedInUser.designation;
   let manageLeaveJSX = "";
   let visitorJSX = "";
   if (
     designation === "Deputy Director" ||
     designation === "Director" ||
-    designation === "Director General" 
+    designation === "Director General"
     // ||designation === "Managing Director"
   ) {
     manageLeaveJSX = (
@@ -208,9 +207,14 @@ const DrawerList = (props) => {
           openVariable={props.settingOpen}
         >
           <SettingsIcon color="primary" />
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Change Password" />
-          </ListItem>
+          <NavLink
+            to="/employeehome/ChangePassword"
+            className={classes.navlink}
+          >
+            <ListItem button className={classes.nested}>
+              <ListItemText primary="Change Password" />
+            </ListItem>
+          </NavLink>
           <ListItem button className={classes.nested}>
             <ListItemText primary="Configuration" />
           </ListItem>

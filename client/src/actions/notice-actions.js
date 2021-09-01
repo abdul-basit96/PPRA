@@ -1,4 +1,4 @@
-import {BACKEND_URL} from '../config';
+import { BACKEND_URL } from '../config';
 const axios = require("axios");
 
 export const insertNotice = (notice) => {
@@ -12,7 +12,6 @@ export const insertNotice = (notice) => {
       alert("Notice Added Successfully");
     } catch (e) {
       alert("Error occur, try again");
-      console.log("error", e);
     }
   };
 };
@@ -27,7 +26,6 @@ export const fetchNotice = () => {
       });
     } catch (e) {
       alert("Error occur, try again");
-      console.log("error", e);
     }
   };
 };
@@ -42,7 +40,6 @@ export const deleteNotice = (id) => {
       });
     } catch (e) {
       alert("Error occur, try again");
-      console.log("error", e);
     }
   };
 };

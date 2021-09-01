@@ -19,6 +19,8 @@ import EmployeeForm from "./employeeForm";
 import AddVisitor from "./employeeComponents/addVisitor";
 import CheckVisitor from "./employeeComponents/checkVisitor";
 import ManageLeaveSummary from './LeaveSummaryReport';
+import ChangePassword from "./employeeComponents/changePassword";
+
 import {
   LeaveActionClose,
   EmployeeActionClose,
@@ -93,10 +95,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MiniDrawer(props, { isLoggedIn, loggedInUser }) {
-  console.log("mini", isLoggedIn);
-  console.log("useer", loggedInUser);
-
-  console.log("drawerprops:",props);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -104,9 +102,8 @@ function MiniDrawer(props, { isLoggedIn, loggedInUser }) {
 
   useEffect(() => {
     props.getLoggedUser();
-    console.log("from drawer",props.getLoggedUser);
   }, []);
- 
+
 
 
 
@@ -154,8 +151,8 @@ function MiniDrawer(props, { isLoggedIn, loggedInUser }) {
           <Avatar
             className={classes.dplarge}
             src={
-              props.loggedInUser.photo?"data:image/png;base64," +
-              new Buffer(props.loggedInUser.photo.data).toString("base64"):""
+              props.loggedInUser.photo ? "data:image/png;base64," +
+                new Buffer(props.loggedInUser.photo.data).toString("base64") : ""
             }
             to="/app/account"
           />
@@ -189,6 +186,11 @@ function MiniDrawer(props, { isLoggedIn, loggedInUser }) {
           />
           <Route exact path="/home/addDepartment" component={AddDepartment} />
           <Route exact path="/home/ManageLeave" component={ManageLeave} />
+          <Route
+            exact
+            path="/home/ChangePassword"
+            component={ChangePassword}
+          />
           <Route exact path="/home/AddNotice" component={AddNotice} />
           <Route exact path="/home/ManageNotice" component={ManageNotice} />
           <Route exact path="/home/attendance" component={Attendance} />
@@ -206,7 +208,6 @@ function MiniDrawer(props, { isLoggedIn, loggedInUser }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log("from drawer:",state);
   return {
     drawerOpen: state.DrawerReducer,
     isLoggedIn: state.authReducer.isLoggedIn,

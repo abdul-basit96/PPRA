@@ -296,9 +296,14 @@ const DrawerList = (props) => {
           openVariable={props.settingOpen}
         >
           <SettingsIcon color="primary" />
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Change Password" />
-          </ListItem>
+          <NavLink
+            to="/home/ChangePassword"
+            className={classes.navlink}
+          >
+            <ListItem button className={classes.nested}>
+              <ListItemText primary="Change Password" />
+            </ListItem>
+          </NavLink>
           <ListItem button className={classes.nested}>
             <ListItemText primary="Configuration" />
           </ListItem>

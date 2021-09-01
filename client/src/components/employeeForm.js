@@ -13,7 +13,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Grid from "@material-ui/core/Grid";
 import FormCard from "./formCard";
 import { connect } from "react-redux";
-import { insertEmployee, fetchEmployees,updateEmployee } from "../actions/employee-actions";
+import { insertEmployee, fetchEmployees, updateEmployee } from "../actions/employee-actions";
 import { getDepartment } from "../actions/dptActions";
 import moment from "moment";
 
@@ -34,27 +34,27 @@ function EmployeeForm(props) {
   const [photo, setPhoto] = useState("");
   const classes = useStyles();
   let initialValues = undefined;
-  const position= ['PS to Managing Director','Managing Director','Director General','Director','Deputy Director','HR','Receptionist','Web Designer','Web Analyst','Assistant','Stenographer','Stenotypist','Cashier','Hardware Technician','UDC','Data Entry Operator','LDC','Driver','Dispatch Rider','Generator Operator','Qasid','Naib Qasid','Sweeper'];
-  
+  const position = ['PS to Managing Director', 'Managing Director', 'Director General', 'Director', 'Deputy Director', 'HR', 'Receptionist', 'Web Designer', 'Web Analyst', 'Assistant', 'Stenographer', 'Stenotypist', 'Cashier', 'Hardware Technician', 'UDC', 'Data Entry Operator', 'LDC', 'Driver', 'Dispatch Rider', 'Generator Operator', 'Qasid', 'Naib Qasid', 'Sweeper'];
+
   let operation = 'Add'
   if (props.location.pathname === "/home/EditEmployee") {
-    operation= 'Update'
+    operation = 'Update'
     initialValues = {
       name: props.employeeState.name,
       email: props.employeeState.email,
-      fatherName:props.employeeState.fatherName,
-      dob:props.employeeState.dob,
-      gender:props.employeeState.gender,
-      maritalStatus:props.employeeState.maritialStatus,
-      phone:props.employeeState.phoneNumber,
-      address:props.employeeState.address,
-      nationality:props.employeeState.nationality,
-      password:"Enter password, if you want to change password",
-      department:props.employeeState.department,
-      designation:props.employeeState.designation,
-      status:props.employeeState.status,
-      doj:props.employeeState.joiningDate,
-      id:props.employeeState._id
+      fatherName: props.employeeState.fatherName,
+      dob: props.employeeState.dob,
+      gender: props.employeeState.gender,
+      maritalStatus: props.employeeState.maritialStatus,
+      phone: props.employeeState.phoneNumber,
+      address: props.employeeState.address,
+      nationality: props.employeeState.nationality,
+      password: "Enter password, if you want to change password",
+      department: props.employeeState.department,
+      designation: props.employeeState.designation,
+      status: props.employeeState.status,
+      doj: props.employeeState.joiningDate,
+      id: props.employeeState._id
     };
   }
   function handleSubmit(e) {
@@ -64,8 +64,8 @@ function EmployeeForm(props) {
       employee.append("name", e.target.name.value);
       employee.append("fatherName", e.target.fatherName.value);
       employee.append("email", e.target.email.value);
-      if(e.target.password.value.length > 0 )employee.append("password", e.target.password.value);
-      if(e.target.dob.value) employee.append("dob", e.target.dob.value);
+      if (e.target.password.value.length > 0) employee.append("password", e.target.password.value);
+      if (e.target.dob.value) employee.append("dob", e.target.dob.value);
       employee.append("gender", e.target.gender.value);
       employee.append("maritialStatus", e.target.maritalStatus.value);
       employee.append("phoneNumber", e.target.phone.value);
@@ -74,7 +74,7 @@ function EmployeeForm(props) {
       employee.append("department", e.target.department.value);
       employee.append("designation", e.target.designation.value);
       employee.append("status", e.target.status.value);
-      if(e.target.doj.value) employee.append("joiningDate", e.target.doj.value);
+      if (e.target.doj.value) employee.append("joiningDate", e.target.doj.value);
       employee.append("leavingDate", "");
       employee.append("resume", "empty");
       employee.append("offerLetter", "empty");
@@ -84,7 +84,7 @@ function EmployeeForm(props) {
       employee.append("accountHolderName", "empty");
       employee.append("bankName", "empty");
       employee.append("branchCode", "empty");
-      if(photo!== "") employee.append("photo", photo);
+      if (photo !== "") employee.append("photo", photo);
       e.target.name.value = "";
       e.target.fatherName.value = "";
       e.target.email.value = "";
@@ -104,7 +104,7 @@ function EmployeeForm(props) {
       // e.target.accountHolder.value = "";
       // e.target.bankName.value = "";
       // e.target.branchCode.value = "";
-      props.updateEmployee(initialValues.id,employee).then((error) => {
+      props.updateEmployee(initialValues.id, employee).then((error) => {
         if (error) {
           alert("Sorry, error occur try again");
         } else {
@@ -113,7 +113,7 @@ function EmployeeForm(props) {
         }
       });
     }
-    else{
+    else {
       const employee = new FormData();
       employee.append("name", e.target.name.value);
       employee.append("fatherName", e.target.fatherName.value);
@@ -158,7 +158,6 @@ function EmployeeForm(props) {
       // e.target.accountHolder.value = "";
       // e.target.bankName.value = "";
       // e.target.branchCode.value = "";
-      console.log('emp in',employee)
       props.insertEmployee(employee).then((error) => {
         if (error) {
           alert("Sorry, error occur try again");
@@ -168,7 +167,7 @@ function EmployeeForm(props) {
         }
       });
     }
-  
+
   }
   return (
     <div className={classes.root}>
@@ -210,7 +209,7 @@ function EmployeeForm(props) {
                 type="date"
                 size="small"
                 margin="normal"
-                required={initialValues ?false:true}
+                required={initialValues ? false : true}
                 defaultValue={initialValues ? initialValues.dob : ""}
                 fullWidth={true}
                 variant="outlined"
@@ -219,7 +218,7 @@ function EmployeeForm(props) {
               <Grid item container style={{ marginTop: "20px" }}>
                 <Grid item xs={6}>
                   <FormLabel component="legend">Gender</FormLabel>
-                  <RadioGroup aria-label="gender" name="gender"  defaultValue={initialValues ? initialValues.gender : ""}>
+                  <RadioGroup aria-label="gender" name="gender" defaultValue={initialValues ? initialValues.gender : ""}>
                     <FormControlLabel
                       value="Female"
                       control={<Radio required={true} />}
@@ -234,7 +233,7 @@ function EmployeeForm(props) {
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel component="legend">Marital Status</FormLabel>
-                  <RadioGroup aria-label="maritalStatus" name="maritalStatus"  defaultValue={initialValues ? initialValues.maritalStatus : ""}>
+                  <RadioGroup aria-label="maritalStatus" name="maritalStatus" defaultValue={initialValues ? initialValues.maritalStatus : ""}>
                     <FormControlLabel
                       value="Married"
                       control={<Radio required={true} />}
@@ -286,10 +285,10 @@ function EmployeeForm(props) {
                 type="file"
                 size="small"
                 margin="normal"
-                required={initialValues?false:true}
+                required={initialValues ? false : true}
                 fullWidth={true}
                 variant="outlined"
-                
+
                 onChange={(e) => setPhoto(e.target.files[0])}
               />
               <FormLabel component="legend">Select photo *</FormLabel>
@@ -316,7 +315,7 @@ function EmployeeForm(props) {
                   type="password"
                   margin="normal"
                   size="small"
-                  required={initialValues?false:true}
+                  required={initialValues ? false : true}
                   fullWidth={true}
                   variant="outlined"
                 />
@@ -372,7 +371,7 @@ function EmployeeForm(props) {
                   <InputLabel htmlFor="outlined-age-native-simple">
                     Status
                   </InputLabel>
-                  <Select native required label="Select Status" name="status"  defaultValue={initialValues ? initialValues.status : ""}>
+                  <Select native required label="Select Status" name="status" defaultValue={initialValues ? initialValues.status : ""}>
                     <option aria-label="None" value="" />
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
@@ -383,7 +382,7 @@ function EmployeeForm(props) {
                   type="date"
                   size="small"
                   margin="normal"
-                  required={initialValues ?false:true}
+                  required={initialValues ? false : true}
                   defaultValue={initialValues ? initialValues.doj : ""}
                   fullWidth={true}
                   variant="outlined"
@@ -504,7 +503,7 @@ function EmployeeForm(props) {
             style={{ marginTop: "30px" }}
             size="large"
             type="submit"
-            // onClick={handleSubmit}
+          // onClick={handleSubmit}
           >
             Submit
           </Button>
@@ -518,7 +517,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchEmployees: () => dispatch(fetchEmployees()),
     insertEmployee: (employee) => dispatch(insertEmployee(employee)),
     getDepartment: () => dispatch(getDepartment()),
-    updateEmployee: (id,employee)=> dispatch(updateEmployee(id,employee)),
+    updateEmployee: (id, employee) => dispatch(updateEmployee(id, employee)),
   };
 };
 const mapStateToProps = (state) => {

@@ -12,15 +12,16 @@ router.post(
 );
 router.get("/employee", employeeController.fetchEmployee);
 router.get("/employee/:id", employeeController.fetchEmployeeById);
-router.patch("/employee/:id",upload.single("photo"), employeeController.updateEmployee);
+router.patch("/employee/:id", upload.single("photo"), employeeController.updateEmployee);
 router.delete("/employee/:id", employeeController.deleteEmployee);
 
 router.post("/login", employeeController.findLoginUser);
+router.patch("/changePassword/:id", employeeController.changePassword);
 
 router.get("/xyz", authMiddleware, employeeController.getLogUser);
 
 router.post("/abc", employeeController.abc);
 
-router.get('/attendance',employeeController.getAttendance)
+router.get('/attendance', employeeController.getAttendance)
 
 module.exports = router;

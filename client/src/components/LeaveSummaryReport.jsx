@@ -20,14 +20,14 @@ const ManageLeaveSummary = (props) => {
 
   const leaves = useSelector((state) => state.leaveReducer.leaveList);
 
-  console.log({ leaves });
 
   function getDifferenceInDays(date1, date2) {
     let date = new Date(date1).getTime();
     let date12 = new Date(date2).getTime();
 
     const diffInMs = Math.ceil(date12 - date);
-    return diffInMs / (1000 * 60 * 60 * 24);
+    const lve = diffInMs / (1000 * 60 * 60 * 24);
+    return lve + 1;
   }
 
   let data = props.leaveState.map((leave) => {
@@ -37,7 +37,7 @@ const ManageLeaveSummary = (props) => {
         department === leave.department) ||
       designation === "HR"
     ) {
-      const employee = props.employeeState.find((emp) => {
+      const employee = props.employeeState?.find((emp) => {
         return emp._id === leave.employeeId;
       });
       return {
@@ -108,7 +108,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 const mapStateToProps = (state) => {
-  console.log({ state });
   return {
     employeeState: state.employeesReducer.employees,
     leaveState: state.leaveReducer.leaveList,

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -13,7 +13,7 @@ import {
 import AirlineSeatFlatIcon from "@material-ui/icons/AirlineSeatFlat";
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,9 +26,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TotalEmp = (props,{ className, ...rest}) => {
+const TotalEmp = (props, { className, ...rest }) => {
   const classes = useStyles();
-// console.log(props);
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -56,12 +55,12 @@ const TotalEmp = (props,{ className, ...rest}) => {
             </Typography>
           </Grid>
           <Grid item>
-            {props.leave?<Avatar className={classes.avatar}>
+            {props.leave ? <Avatar className={classes.avatar}>
               <AirlineSeatFlatIcon />
-            </Avatar>:<Avatar className={classes.avatar}>
+            </Avatar> : <Avatar className={classes.avatar}>
               <GroupAddOutlinedIcon />
             </Avatar>}
-            
+
           </Grid>
         </Grid>
       </CardContent>
@@ -73,8 +72,8 @@ TotalEmp.propTypes = {
   className: PropTypes.string
 };
 
-function mapStateToProps(state){ 
-  return{
+function mapStateToProps(state) {
+  return {
     users: state.xyz
   }
 }

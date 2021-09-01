@@ -72,10 +72,10 @@ const Employee = mongoose.model("Employee", {
   photo: {
     type: Buffer,
   },
-  totalLeaves:{
+  totalLeaves: {
     type: Number,
-    default: 24
-  }, 
+    default: 20
+  },
   earnedLeaves: {
     type: Number,
     default: 0

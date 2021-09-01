@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LeaveCard({employeeLeaves}) {
+export default function LeaveCard({ employeeLeaves }) {
   const classes = useStyles();
-  console.log('aaaaa',employeeLeaves)
   return (
     <Card className={classes.root}>
       <List

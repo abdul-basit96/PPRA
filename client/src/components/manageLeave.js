@@ -21,7 +21,7 @@ const ManageLeave = (props) => {
       (leave.status === "Pending" && designation === leave.authority && department === leave.department) ||
       designation === "HR"
     ) {
-      const employee = props.employeeState.find((emp) => {
+      const employee = props.employeeState?.find((emp) => {
         return emp._id === leave.employeeId;
       });
       return {

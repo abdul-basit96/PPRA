@@ -1,7 +1,6 @@
 const Notice = require("../models/notice");
 
 const insertNotice = async (req, res) => {
-  console.log("asssdas");
   const notice = new Notice(req.body);
   try {
     await notice.save();

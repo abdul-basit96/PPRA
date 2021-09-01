@@ -1,15 +1,14 @@
 import authReducer from "../reducers/authReducer";
 import { setToken } from "./setToken";
 import axios from "axios";
-import {BACKEND_URL} from '../config';
+import { BACKEND_URL } from '../config';
 
 
 export const loadUser = () => async (dispatch) => {
-  console.log("localstoreage", localStorage.getItem("token"));
   if (localStorage.getItem("token")) {
     setToken(localStorage.getItem("token"));
   }
-  else{
+  else {
     console.log("no token present");
   }
   try {
@@ -44,7 +43,6 @@ export const loginUser = (email, password) => async (dispatch) => {
     });
     await dispatch(loadUser());
   } catch (error) {
-    console.log(error);
     dispatch({ type: "LOGIN_FAIL", payload: error });
     alert('Login failed. Enter valid credentials');
 

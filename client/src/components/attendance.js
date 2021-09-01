@@ -1,38 +1,37 @@
-import React,  { useEffect } from "react";
+import React, { useEffect } from "react";
 import MaterialTable from "material-table";
 import { connect } from "react-redux";
 import { attendance } from "../actions/employee-actions";
 
 const Attendance = (props) => {
-    useEffect(() => {
-        props.attendance();
-      }, []);
-       if(props.data.dateArray){
-           
-       console.log('props',props.data)
-    var data = props.data.dateArray.map((date,index) => {
-        return {
-          name: props.data.nameArray[index],
-          date: date,
-          dept: props.data.deptArray[index],
-          onduty:  props.data.onArray[index],
-          offduty: props.data.offArray[index],
-          checkIn: props.data.checkIn?props.data.checkIn[index]:'',
-          checkOut: props.data.checkOut?props.data.checkOut[index]:''
-        };
-      });
-    }
-         
+  useEffect(() => {
+    props.attendance();
+  }, []);
+  if (props.data.dateArray) {
 
-    const columns = [
-        { title: "Name", field: "name" },
-        { title: "Department", field: "dept" },
-        { title: "Date", field: "date" },
-        { title: "On duty", field: "onduty" },
-        { title: "Off duty", field: "offduty" },
-        { title: "Check In", field: "checkIn" },
-        { title: "Check Out", field: "checkOut" },
-      ];
+    var data = props.data.dateArray.map((date, index) => {
+      return {
+        name: props.data.nameArray[index],
+        date: date,
+        dept: props.data.deptArray[index],
+        onduty: props.data.onArray[index],
+        offduty: props.data.offArray[index],
+        checkIn: props.data.checkIn && props.data.checkIn[index] === '' ? 'Absent' : props.data.checkIn[index],
+        checkOut: props.data.checkOut ? props.data.checkOut[index] : ''
+      };
+    });
+  }
+
+
+  const columns = [
+    { title: "Name", field: "name" },
+    { title: "Department", field: "dept" },
+    { title: "Date", field: "date" },
+    { title: "On duty", field: "onduty" },
+    { title: "Off duty", field: "offduty" },
+    { title: "Check In", field: "checkIn" },
+    { title: "Check Out", field: "checkOut" },
+  ];
   return (
     <MaterialTable
       title="Attendance Report"
@@ -44,14 +43,13 @@ const Attendance = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    console.log('att',state.attendance)
-    return {
-      data: state.attendance,
-    };
+  return {
+    data: state.attendance,
   };
-  const mapDispatchToProps = (dispatch) => {
-    return {
-        attendance: () => dispatch(attendance()),
-    };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    attendance: () => dispatch(attendance()),
   };
-export default connect(mapStateToProps,mapDispatchToProps) (Attendance);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Attendance);

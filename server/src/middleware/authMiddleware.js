@@ -9,7 +9,6 @@ module.exports = function (req, res, next) {
     req.user = verifiedUser;
     next();
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: "Serveer Error..Middle." });
   }
 };

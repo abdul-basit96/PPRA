@@ -20,26 +20,36 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const Graph = ({dates, present, total,absent, className, attendanceData, ...rest }) => {
- 
+const Graph = ({ graph, className, ...rest }) => {
+  var present = [];
+  var absent = [];
+  var date = [];
+  for (let i = 0; i < graph?.length; i++) {
+    present.push(graph[i].present);
+    absent.push(graph[i].absent);
+    let newDate = new Date(graph[i].date);
+    const day = newDate.toLocaleString('default', { day: '2-digit' });
+    const month = newDate.toLocaleString('default', { month: 'short' });
+    const year = newDate.toLocaleString('default', { year: 'numeric' });
+    date.push(day + '-' + month + '-' + year);
+  }
   const classes = useStyles();
   const theme = useTheme();
 
-  console.log('preee',dates)
   const data = {
     datasets: [
       {
         backgroundColor: colors.indigo[500],
-        data: [present[0],present[1],present[2],present[3],present[4],present[5],present[6]],
+        data: present,
         label: 'Present'
       },
       {
         backgroundColor: colors.grey[200],
-        data: [absent[1],absent[2],absent[3],absent[4],absent[5],absent[6]],
+        data: absent,
         label: 'Absent'
       }
     ],
-    labels: dates
+    labels: date
   };
 
   const options = {

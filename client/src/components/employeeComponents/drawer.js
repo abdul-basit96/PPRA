@@ -36,6 +36,7 @@ import AddLeave from "./addLeave";
 import AddVisitor from "./addVisitor";
 import CheckVisitor from "./checkVisitor";
 import CheckLeaveStatus from "./checkLeaveStatus";
+import ChangePassword from "./changePassword";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -92,15 +93,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EmployeeMiniDrawer(props) {
-  
-  
-  
+
+
+
   useEffect(() => {
     props.getLoggedUser();
-    console.log("props", props);
   }, []);
-  
-  
+
+
   const classes = useStyles();
   const theme = useTheme();
   const open = props.drawerOpen;
@@ -148,8 +148,8 @@ function EmployeeMiniDrawer(props) {
           <Avatar
             className={classes.dplarge}
             src={
-              props.loggedInUser.photo? "data:image/png;base64," +
-              new Buffer(props.loggedInUser.photo.data).toString("base64"):""
+              props.loggedInUser.photo ? "data:image/png;base64," +
+                new Buffer(props.loggedInUser.photo.data).toString("base64") : ""
             }
             to="/app/account"
           />
@@ -170,6 +170,11 @@ function EmployeeMiniDrawer(props) {
             exact
             path="/employeehome/ApplyForLeave"
             component={AddLeave}
+          />
+          <Route
+            exact
+            path="/employeehome/ChangePassword"
+            component={ChangePassword}
           />
           <Route
             exact
@@ -195,7 +200,6 @@ function EmployeeMiniDrawer(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state:=", state);
   return {
     drawerOpen: state.DrawerReducer,
     isLoggedIn: state.authReducer.isLoggedIn,

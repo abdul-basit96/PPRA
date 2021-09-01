@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import TotalEmp from './totalEmployees';
 import Graph from './graph';
 import AlignItemsList from './activitylist';
-import { attendance, fetchEmployeeLeaves } from "../actions/employee-actions";
+import { attendance, fetchEmployeeLeaves, fetchGraph } from "../actions/employee-actions";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchLeave } from "../actions/user-leave-actions";
@@ -23,10 +23,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AutoGrid = (props) => {
-  
+
   const classes = useStyles();
   const loggedInUser = useSelector((state) => state.authReducer.loggedInUser);
   const leaves = useSelector((state) => state.leaveReducer.leaveList);
+  const graph = useSelector((state) => state.graphReducer.employees);
+
   const totalLeaves = leaves.filter((leave) => {
     if (leave.status)
       if ((leave.employeeId === loggedInUser._id) && (leave.status.includes('Approved'))) {
@@ -38,6 +40,7 @@ const AutoGrid = (props) => {
   useEffect(() => {
     props.attendance();
     props.fetchLeave();
+    props.fetchGraph();
     props.fetchEmployeeLeaves(loggedInUser?._id);
   }, [loggedInUser]);
   var today = new Date();
@@ -55,7 +58,7 @@ const AutoGrid = (props) => {
   dd = 3;
   mm = 9;
   today = mm + '/' + dd + '/' + yyyy;
-  var d = new Date(today);
+  var d = new Date();
   var weekday = new Array(7);
   weekday[0] = "Sunday";
   weekday[1] = "Monday";
@@ -91,11 +94,14 @@ const AutoGrid = (props) => {
         return date;
       }
     });
-    var present = props.data.onArray.filter((on, index) => {
-      if (on.includes(':')) {
-        return on
+
+    var absent = props.data.empAbsentArray.filter((val, index) => {
+      if (val === "True") {
+        return val;
       }
-    })
+    });
+    var present = Number(props.data.empAbsentArray?.length) - Number(absent.length);
+
     dates = dates.filter(da => {
       if (da) return da;
     })
@@ -215,17 +221,17 @@ const AutoGrid = (props) => {
         <Grid container spacing={1} style={{ height: "100%" }} justify="center" align="center">
           <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
-              <TotalEmp title="TOTAL EMPLOYEES" emp={total ? present.length : ""} />
+              <TotalEmp title="TOTAL EMPLOYEES" emp={props.data?.empAbsentArray?.length} />
             </Paper>
           </Grid>
           <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
-              <TotalEmp title="PRESENT EMPLOYEES" emp={total ? total.length : ""} />
+              <TotalEmp title="PRESENT EMPLOYEES" emp={present} />
             </Paper>
           </Grid>
           <Grid item xs style={{ height: "100%" }}>
             <Paper className={classes.paper}>
-              <TotalEmp title="ABSENT EMPLOYEES" emp={total ? present.length - total.length : ""} />
+              <TotalEmp title="ABSENT EMPLOYEES" emp={absent?.length} />
             </Paper>
           </Grid>
           <Grid item xs style={{ height: "100%" }}>
@@ -262,17 +268,17 @@ const AutoGrid = (props) => {
     dashboardJSX = (<Grid container spacing={2}>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <TotalEmp title="TOTAL LEAVES" emp={24} leave='yes' />
+          <TotalEmp title="TOTAL LEAVES" emp={20} leave='yes' />
         </Paper>
       </Grid>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <TotalEmp title="EARNED LEAVES" emp={24 - loggedInUser?.totalLeaves} leave='yes' />
+          <TotalEmp title="EARNED LEAVES" emp={20 - loggedInUser?.totalLeaves} leave='yes' />
         </Paper>
       </Grid>
       <Grid item xs>
         <Paper className={classes.paper}>
-          <TotalEmp title="REMAINING LEAVES" emp={24 - (24 - loggedInUser?.totalLeaves)} leave='yes' />
+          <TotalEmp title="REMAINING LEAVES" emp={20 - (20 - loggedInUser?.totalLeaves)} leave='yes' />
         </Paper>
       </Grid>
       {/* <Grid item xs>
@@ -298,11 +304,13 @@ const AutoGrid = (props) => {
       <br />
       <Grid container spacing={12}>
         <br />
-        <Grid item xs>
-          <Paper className={classes.paper}>
-            <Graph dates={total ? dates : ""} total={total ? totalforg : ""} present={total ? presentforg : ""} absent={total ? absentforg : ""} />
-          </Paper>
-        </Grid>
+        {designation === 'HR' && (
+          <Grid item xs>
+            <Paper className={classes.paper}>
+              <Graph graph={graph} />
+            </Paper>
+          </Grid>
+        )}
         <Grid item xs>
           <Paper className={classes.paper}>
             <h1>Important Notices</h1>
@@ -316,6 +324,7 @@ const AutoGrid = (props) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log({ state }, 'aaaaa')
   return {
     data: state.attendance,
     employeeLeaves: state.employeesReducer.employeeLeaves
@@ -325,6 +334,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     attendance: () => dispatch(attendance()),
     fetchLeave: () => dispatch(fetchLeave()),
+    fetchGraph: () => dispatch(fetchGraph()),
     fetchEmployeeLeaves: (id) => dispatch(fetchEmployeeLeaves(id))
   };
 };
