@@ -51,6 +51,17 @@ const updateLeave = async (req, res) => {
         if (leave.type.toLowerCase().includes('casual')) {
           await Employee.findByIdAndUpdate(leave.employeeId, { totalLeaves: employee.totalLeaves - days });
         }
+      }else if (req.body.status === 'Recommended') {
+        console.log(req.body)
+        // const days = getDifferenceInDays(leave.from, leave.to);
+        // const employee = await Employee.findById(leave.employeeId);
+        // if (days > employee.totalLeaves) {
+        //   return res.send('Sorry');
+        // }
+        await Leave.findByIdAndUpdate(req.params.id, req.body);
+        // if (leave.type.toLowerCase().includes('casual')) {
+        //   await Employee.findByIdAndUpdate(leave.employeeId, { totalLeaves: employee.totalLeaves - days });
+        // }
       }
     }
     res.send(leave);

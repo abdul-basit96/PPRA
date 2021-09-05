@@ -34,6 +34,27 @@ const ManageLeave = (props) => {
         department: leave.department
       };
     }
+
+    //this blow condition is for director
+
+    if (
+      (leave.status === "Recommended" && department === leave.department) &&
+      designation === "Director"
+    ) {
+      const employee = props.employeeState?.find((emp) => {
+        return emp._id === leave.employeeId;
+      });
+      return {
+        id: leave._id,
+        employeeName: employee ? employee.name : "",
+        type: leave.type,
+        duration: ConvertDate(leave.from) + " To " + ConvertDate(leave.to),
+        comment: leave.comment,
+        status: leave.status,
+        department: leave.department
+      };
+    }
+
   });
   data = data.filter((data) => {
     return data != null;
@@ -54,10 +75,10 @@ const ManageLeave = (props) => {
     actions = [
       {
         icon: "check",
-        tooltip: "Approve Leave",
+        tooltip: designation === "Director" ? "Approve Leave" : "Recommend Leave",
         onClick: (event, rowData) => {
           props.updateLeave(rowData.id, {
-            status: "Approved",
+            status: designation === "Director" ? "Approved" : "Recommended",
           });
         },
       },
