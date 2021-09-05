@@ -34,7 +34,7 @@ function EmployeeForm(props) {
   const [photo, setPhoto] = useState("");
   const classes = useStyles();
   let initialValues = undefined;
-  const position = ['PS to Managing Director', 'Managing Director', 'Director General', 'Director', 'Deputy Director', 'HR', 'Receptionist', 'Web Designer', 'Web Analyst', 'Assistant', 'Stenographer', 'Stenotypist', 'Cashier', 'Hardware Technician', 'UDC', 'Data Entry Operator', 'LDC', 'Driver', 'Dispatch Rider', 'Generator Operator', 'Qasid', 'Naib Qasid', 'Sweeper'];
+  const position = ['PS to Managing Director', 'Assistant Director', 'Managing Director', 'Director General', 'Director', 'Deputy Director', 'HR', 'Receptionist', 'Web Designer', 'Web Analyst', 'Assistant', 'Stenographer', 'Stenotypist', 'Cashier', 'Hardware Technician', 'UDC', 'Data Entry Operator', 'LDC', 'Driver', 'Dispatch Rider', 'Generator Operator', 'Qasid', 'Naib Qasid', 'Sweeper'];
 
   let operation = 'Add'
   if (props.location.pathname === "/home/EditEmployee") {

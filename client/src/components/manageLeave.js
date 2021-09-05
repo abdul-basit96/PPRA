@@ -39,7 +39,7 @@ const ManageLeave = (props) => {
 
     if (
       (leave.status === "Recommended" && department === leave.department) &&
-      designation === "Director"
+      (designation === "Director" || designation === "Director General")
     ) {
       const employee = props.employeeState?.find((emp) => {
         return emp._id === leave.employeeId;
@@ -75,10 +75,10 @@ const ManageLeave = (props) => {
     actions = [
       {
         icon: "check",
-        tooltip: designation === "Director" ? "Approve Leave" : "Recommend Leave",
+        tooltip: (designation === "Director" || designation === "Director General") ? "Approve Leave" : "Recommend Leave",
         onClick: (event, rowData) => {
           props.updateLeave(rowData.id, {
-            status: designation === "Director" ? "Approved" : "Recommended",
+            status: (designation === "Director" || designation === "Director General") ? "Approved" : "Recommended",
           });
         },
       },

@@ -104,9 +104,10 @@ const AddLeave = (props) => {
                     name="authority"
                   >
                     <option aria-label="None" value="" />
+                    <option value="Assistant Director">Assistant Director</option>
                     <option value="Deputy Director">Deputy Director</option>
-                    <option value="Director">Director</option>
-                    <option value="Director General">Director General</option>
+                    {/* <option value="Director">Director</option>
+                    <option value="Director General">Director General</option> */}
                     <option value="Managing Director">Managing Director</option>
                   </Select>
                 </FormControl>
